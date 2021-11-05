@@ -1,0 +1,46 @@
+import java.net.*;
+import java.io.*;
+import java.nio.file.*;
+public class Server{
+    public static void main(String[] args){
+        String ins=" ";
+        String email=" ";
+        String na=" ";
+        String type=" ";
+        String select=" ";
+        String id=" ";
+        String con=" ";
+        String pre=" ";
+        String name=" ";
+        int types; 
+        try{
+            ServerSocket ss= new ServerSocket(6666);
+            Socket s=ss.accept();
+            DataInputStream dis=new DataInputStream(s.getInputStream());
+            String str=(String)dis.readUTF();
+            System.out.println("message = "+str);
+            String[] arr=str.split(",",-2);
+            ins=arr[0];
+            email=arr[1];
+            type=arr[2];
+            select=arr[3];
+            con=arr[4];
+            pre=arr[5];
+            na=arr[6];
+            ss.close();
+        }catch(Exception e){System.out.println(e);}
+        try{
+            if(true){
+                FileWriter fw=new FileWriter("name.txt",true);
+                fw.write("\n\n----NAAC APPLICATION-----"+"\n"+ins+"\n"+type+"\n"+select+"\n"+email+"\n"+con+"\n"+pre+"\n");
+                fw.close();
+                System.out.println("success");
+            }else{
+                System.out.println("the file exist already ");
+            }
+        }catch(IOException e){
+            System.out.println(e);
+            e.printStackTrace();
+        }
+    }
+}

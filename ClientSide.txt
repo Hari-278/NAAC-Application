@@ -1,0 +1,74 @@
+import java.net.*;
+import java.io.*;
+import java.util.Scanner;
+public class ClientSide{
+    
+    public static void main(String args[]){
+        String ins,email,emails,na,selects,types,pres,cons,inss,names;
+        int type,select,id,con,pre;
+        Scanner in=new Scanner(System.in);
+        Scanner inse=new Scanner(System.in);
+        System.out.println("----NAAC APPLICATION-----");
+        System.out.println("\nName of the institution : ");
+        ins=in.nextLine();
+        System.out.println("enter your name: ");
+        na=inse.nextLine();
+        System.out.println("Instution type : (press 1 for University 2 for College) ");
+        type=in.nextInt();
+        System.out.println("MHRD AISHE slect : (press 1 for U- 2 for C- 3 for S-) :");
+        select=in.nextInt();
+        System.out.println("MHRD AISHE ID :");
+        id=in.nextInt();
+        System.out.println("Enter Mobile Number for communication : ");
+        con=in.nextInt();
+        System.out.println("Institution Email id : ");
+        email=inse.nextLine();
+        
+        System.out.println("Are you previously accredited (press 1 for yes 2 for no ) : ");
+        pre=in.nextInt();
+
+        System.out.println("----NAAC APPLICATION-----");
+        System.out.println("\nName of the institution : "+ins);
+        inss="Name of the institution : "+ins;
+        System.out.println("Name: "+na);
+        names="Name: "+na;
+        if(type==1){
+            System.out.println("Institution type : University");
+            types="Institution type : University";
+        }else{
+            System.out.println("Institution type : College");
+            types="Institution type : College";
+        }
+        if(select==1){
+            System.out.println("MHRD AISHE ID : U- "+id);
+            selects="MHRD AISHE ID : U- "+id;
+        }else if(select==2){
+            System.out.println("MHRD AISHE ID : C- "+id); 
+            selects="MHRD AISHE ID : C- "+id;  
+        }else{
+            System.out.println("MHRD AISHE ID : S- "+id);
+            selects="MHRD AISHE ID : S- "+id;
+        }
+        System.out.println("Institution Email id : "+email);
+        emails="Institution Email id : "+email;
+        System.out.println("Mobile Number for communication : "+con);
+        cons="Mobile Number for communication : "+con;
+        if(pre==1){
+            System.out.println("you are previously accredited");
+            pres="you are previously accredited";
+        }else{
+            System.out.println("you are not previously accredited");
+            pres="you are not previously accredited";
+        }
+        try{
+            Socket s=new Socket("localhost",6666);
+            DataOutputStream dout=new DataOutputStream(s.getOutputStream());
+            dout.writeUTF(inss+","+emails+","+types+","+selects+","+cons+","+pres+","+names);
+            dout.flush();
+            dout.close();
+            s.close();
+        }catch(Exception e){System.out.println(e);}
+
+    }
+
+}
